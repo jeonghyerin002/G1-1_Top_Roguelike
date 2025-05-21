@@ -64,10 +64,6 @@ public class PlayerController : MonoBehaviour
             HelpMemo.SetActive(true);
             isHelpful = false;
 
-            OpenDoor.SetActive(true);
-
-
-
         }
        if(Input.GetKeyUp(KeyCode.E))
         {

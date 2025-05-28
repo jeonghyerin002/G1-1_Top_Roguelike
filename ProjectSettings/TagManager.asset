@@ -9,6 +9,8 @@ TagManager:
   - Wall
   - Memo
   - Door
+  - NeverDie
+  - BossAttack
   layers:
   - Default
   - TransparentFX

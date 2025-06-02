@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     public bool isNeverDie;
     public bool dyingMessage = false;
 
+    private float curTime;
+    public float coolTime = 0.5f;
+
     Vector2 input;
     Vector2 Velocity;
 
@@ -46,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         if (input.sqrMagnitude > .01f)
         {
-            if(Mathf.Abs(input.x) > Mathf.Abs(input.y))
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
             {
                 if (input.x > 0)
                     sR.sprite = spriteRight;
@@ -62,20 +65,38 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-       if (Input.GetKeyDown(KeyCode.E))
-       {
+
+        if (curTime <= 0)
+        {
+            // 공격
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
+                //Animator.SetTrigger(attack);  //스페이스바 누를 때 애니메이션 출력
+                curTime = coolTime;
+            }
+
+        }
+        else
+        {
+            curTime -= Time.deltaTime;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
             Debug.Log("상호작용 확인");
             //isHelp = true; 뭔지 기억 안남
             helpMemo.SetActive(true);
             isHelpful = false;
 
         }
-       if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             helpMemo.SetActive(false);
         }
 
- 
+
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
@@ -92,7 +113,7 @@ public class PlayerController : MonoBehaviour
             {
                 collision.collider.GetComponent<LevelObject>().MoveToDyingMessage();
             }
-            
+
         }
 
         if (collision.gameObject.CompareTag("Box"))
@@ -121,10 +142,10 @@ public class PlayerController : MonoBehaviour
 
             //if(collision.gameObject.CompareTag("Respawn")) 
             //{
-                //isNeverDie = false;
+            //isNeverDie = false;
             //}
         }
-            
+
     }
     void HelpItem()
     {
@@ -135,6 +156,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + Velocity *  Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + Velocity * Time.fixedDeltaTime);
     }
 }

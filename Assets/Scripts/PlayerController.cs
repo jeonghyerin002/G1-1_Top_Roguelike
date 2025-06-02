@@ -25,8 +25,11 @@ public class PlayerController : MonoBehaviour
     public bool isNeverDie;
     public bool dyingMessage = false;
 
-    private float curTime;
-    public float coolTime = 0.5f;
+    public GameObject closeHitbox;           //근접공격 히트박스
+    public Transform AttackPoint;
+
+    private float coolTime;
+    public float MaxcoolTime = 0.5f;
 
     Vector2 input;
     Vector2 Velocity;
@@ -66,20 +69,20 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if (curTime <= 0)
+        if (coolTime <= 0)
         {
             // 공격
             if (Input.GetKeyDown(KeyCode.Space))
             {
 
                 //Animator.SetTrigger(attack);  //스페이스바 누를 때 애니메이션 출력
-                curTime = coolTime;
+                coolTime = MaxcoolTime;
             }
 
         }
         else
         {
-            curTime -= Time.deltaTime;
+            coolTime -= Time.deltaTime;
         }
 
 
@@ -98,11 +101,15 @@ public class PlayerController : MonoBehaviour
 
 
     }
-
-    public void OnCollisionEnter2D(Collision2D collision)
+    
+    public void SpawnSmashHitbox()
     {
+        Instantiate(closeHitbox, AttackPoint.position, Quaternion.identity);
+    }
 
-        if (collision.collider.gameObject.CompareTag("Respawn"))
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Respawn"))
         {
             if (isNeverDie)
             {
@@ -111,7 +118,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                collision.collider.GetComponent<LevelObject>().MoveToDyingMessage();
+                collision.GetComponent<LevelObject>().MoveToDyingMessage();
             }
 
         }
@@ -145,7 +152,6 @@ public class PlayerController : MonoBehaviour
             //isNeverDie = false;
             //}
         }
-
     }
     void HelpItem()
     {

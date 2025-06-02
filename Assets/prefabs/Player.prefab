@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &937643678665948080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4066689710286703879}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4066689710286703879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937643678665948080}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.13600004, y: -0.08899999, z: 0.08687153}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7030772860730815157}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4892294767900887698
 GameObject:
   m_ObjectHideFlags: 0
@@ -27,7 +58,7 @@ Transform:
   m_GameObject: {fileID: 4892294767900887698}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00509426, y: 0.04391837, z: -2.629}
+  m_LocalPosition: {x: 0.00509426, y: 0.11, z: -2.629}
   m_LocalScale: {x: 1.3447, y: 1.5632137, z: 1.3447}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107,7 +138,7 @@ GameObject:
   - component: {fileID: 4806278655300773096}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,6 +157,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1869155306206457067}
+  - {fileID: 4066689710286703879}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &8190676452136890108
@@ -242,9 +274,14 @@ MonoBehaviour:
   spriteLeft: {fileID: 21300000, guid: 1cf8ff16d2ae36347bc525ce52f20aac, type: 3}
   spriteRight: {fileID: 21300000, guid: d5bdaa045fedb534d84991e65b0df867, type: 3}
   isOpenBox: 0
-  HelpMemo: {fileID: 0}
-  OpenDoor: {fileID: 0}
+  helpMemo: {fileID: 0}
+  isOpenDoor: 0
   isHelpful: 0
+  isNeverDie: 0
+  dyingMessage: 0
+  closeHitbox: {fileID: 1631186394057455736, guid: 5b0bc29fa688678448c4cc2d0cf6a129, type: 3}
+  AttackPoint: {fileID: 4066689710286703879}
+  MaxcoolTime: 0.5
 --- !u!50 &4806278655300773096
 Rigidbody2D:
   serializedVersion: 4

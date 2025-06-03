@@ -31,22 +31,29 @@ public class PlayerController : MonoBehaviour
     private float coolTime;
     public float MaxcoolTime = 0.5f;
 
+    Animator animator;
     Vector2 input;
     Vector2 Velocity;
 
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         sR = GetComponent<SpriteRenderer>();
         //rb.bodyType = RigidbodyType2D.Kinematic;  
         bossController = GetComponent<BossController>();
+        
     }
 
     private void Update()
     {
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
+
+        //방향에 따라 애니메이션 파라미터 연결
+        animator.SetFloat("MoveX", input.x);
+        animator.SetFloat("MoveY", input.y);
 
         Velocity = input.normalized * moveSpeed;
 

@@ -52,8 +52,8 @@ public class PlayerController : MonoBehaviour
         input.y = Input.GetAxisRaw("Vertical");
 
         //방향에 따라 애니메이션 파라미터 연결
-        animator.SetFloat("MoveX", input.x);
-        animator.SetFloat("MoveY", input.y);
+        //animator.SetInteger("MoveX", input.x);
+        //animator.SetInteger("MoveY", input.y);
 
         Velocity = input.normalized * moveSpeed;
 
@@ -62,16 +62,20 @@ public class PlayerController : MonoBehaviour
             if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
             {
                 if (input.x > 0)
-                    sR.sprite = spriteRight;
+                    animator.SetInteger("Direction", 2);
+                //sR.sprite = spriteRight;
                 else
-                    sR.sprite = spriteLeft;
+                    animator.SetInteger("Direction", 1);
+                    //sR.sprite = spriteLeft;
             }
             else
             {
                 if (input.y > 0)
-                    sR.sprite = spriteUp;
+                    animator.SetInteger("Direction", 3);
+                //sR.sprite = spriteUp;
                 else
-                    sR.sprite = spriteDown;
+                    animator.SetInteger("Direction", 0);
+                    //sR.sprite = spriteDown;
             }
         }
 
@@ -116,7 +120,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Respawn"))
+        if (collision.CompareTag("Respawn"))
         {
             if (isNeverDie)
             {
@@ -130,14 +134,14 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (collision.gameObject.CompareTag("Box"))
+        if (collision.CompareTag("Box"))
         {
             isHelpful = true;
             Debug.Log("상자 발견" + " 열쇠 획득");
             isOpenBox = true;
         }
 
-        if (collision.gameObject.CompareTag("Door"))
+        if (collision.CompareTag("Door"))
         {
             isHelpful = false;
             Debug.Log("열쇠가 필요합니다.");
@@ -148,7 +152,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.CompareTag("NeverDie"))
+        if (collision.CompareTag("NeverDie"))
         {
             isNeverDie = true;
             Debug.Log("목숨 +1");

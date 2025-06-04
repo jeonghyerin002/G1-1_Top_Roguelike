@@ -153,11 +153,17 @@ MonoBehaviour:
   isOpenBox: 0
   helpMemo: {fileID: 0}
   isOpenDoor: 0
+  isBossDie: 0
   isHelpful: 0
   isNeverDie: 0
   dyingMessage: 0
   closeHitbox: {fileID: 1631186394057455736, guid: 5b0bc29fa688678448c4cc2d0cf6a129, type: 3}
   AttackPoint: {fileID: 9077981497601051632}
+  AttackPos:
+  - {fileID: 9077981497601051632}
+  - {fileID: 9077981497601051632}
+  - {fileID: 9077981497601051632}
+  - {fileID: 9077981497601051632}
   MaxcoolTime: 0.5
 --- !u!50 &4470374802417755518
 Rigidbody2D:
@@ -182,7 +188,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -232,7 +238,7 @@ Transform:
   m_GameObject: {fileID: 6077482627548847518}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.13600004, y: -0.08899999, z: 0.08687153}
+  m_LocalPosition: {x: -0.15, y: -0.69, z: 0.08687153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

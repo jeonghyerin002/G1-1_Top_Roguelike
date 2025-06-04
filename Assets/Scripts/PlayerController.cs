@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject closeHitbox;           //근접공격 히트박스
     public Transform AttackPoint;
+    public Transform[] AttackPos;
 
     private float coolTime;
     public float MaxcoolTime = 0.5f;
@@ -63,19 +64,36 @@ public class PlayerController : MonoBehaviour
             if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
             {
                 if (input.x > 0)
+                {
                     animator.SetInteger("Direction", 2);
+                    AttackPoint.position = AttackPos[0].position;
+
+                }
+                    
                 //sR.sprite = spriteRight;
                 else
+                {
                     animator.SetInteger("Direction", 1);
+                    AttackPoint.position = AttackPos[1].position;
+                }
+                    
                     //sR.sprite = spriteLeft;
             }
             else
             {
                 if (input.y > 0)
+                {
                     animator.SetInteger("Direction", 3);
+                    AttackPoint.position = AttackPos[2].position;
+                }
+                    
                 //sR.sprite = spriteUp;
                 else
+                {
                     animator.SetInteger("Direction", 0);
+                    AttackPoint.position = AttackPos[3].position;
+                }
+                    
                     //sR.sprite = spriteDown;
             }
         }
@@ -86,7 +104,7 @@ public class PlayerController : MonoBehaviour
             // 공격
             if (Input.GetKeyDown(KeyCode.Space))
             {
-
+                SpawnSmashHitbox();
                 //Animator.SetTrigger(attack);  //스페이스바 누를 때 애니메이션 출력
                 coolTime = MaxcoolTime;
             }

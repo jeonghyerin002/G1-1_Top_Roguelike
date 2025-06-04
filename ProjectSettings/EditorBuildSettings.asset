@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage_1.unity
     guid: e766e7f839d6f7546866edb0254056b8
   - enabled: 1
+    path: Assets/Scenes/Stage_2.unity
+    guid: 7237fc7977adbcf44993070147474ea2
+  - enabled: 1
     path: Assets/Scenes/DyingMessage.unity
     guid: 5f3071c6327620d4d9b6d868ad2236e3
   m_configObjects: {}

@@ -9,6 +9,7 @@ public class BossController : MonoBehaviour
 
     public int bossHP = 0;
     public int bossHPMax;
+    public int bossAttackCount;
     public GameObject warningEffect;
     public GameObject attackPrefabs;
 
@@ -58,7 +59,8 @@ public class BossController : MonoBehaviour
     }
     IEnumerator RoundBoss()
     {
-        Vector2[] attackPos = new Vector2[2];
+
+        Vector2[] attackPos = new Vector2[bossAttackCount];
         
         for(int i = 0; i < attackPos.Length; i++)
         {

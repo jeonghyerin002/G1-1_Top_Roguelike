@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public bool isOpenBox;
     public GameObject helpMemo;      //패널
     public bool isOpenDoor = false;
+    public bool isBossDie = false;
     public bool isHelpful;              //트리거 bool 확인
     public bool isNeverDie;
     public bool dyingMessage = false;
@@ -146,9 +147,11 @@ public class PlayerController : MonoBehaviour
             isHelpful = false;
             Debug.Log("열쇠가 필요합니다.");
 
-            if (isOpenBox == true)
+            if (isOpenBox == true || isBossDie)
             {
-                SceneManager.LoadScene("Stage_1");
+                int CurrentStage = SceneManager.GetActiveScene().buildIndex;
+                int NextStage = CurrentStage += 1;
+                SceneManager.LoadScene(NextStage);
             }
         }
 

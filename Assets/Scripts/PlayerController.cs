@@ -118,10 +118,18 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Debug.Log("상호작용 확인");
-            //isHelp = true; 뭔지 기억 안남
-            helpMemo.SetActive(true);
-            isHelpful = false;
+            if(isHelpful)
+            {
+                Debug.Log("상자와 상호작용 중 - 도움말 열기");
+                //isHelp = true; 뭔지 기억 안남
+                helpMemo.SetActive(true);
+                //isHelpful = false;
+
+            }
+            else
+            {
+                Debug.Log("근처에 상자가 없어서 도움말을 열 수 없음");
+            }
 
         }
         if (Input.GetKeyDown(KeyCode.Q))
@@ -183,6 +191,14 @@ public class PlayerController : MonoBehaviour
             //{
             //isNeverDie = false;
             //}
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Box"))
+        {
+            isHelpful = false;
         }
     }
     void HelpItem()

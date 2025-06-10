@@ -156,6 +156,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                GameDataManager.instance.PlayerDead(SceneManager.GetActiveScene().buildIndex);
                 collision.GetComponent<LevelObject>().MoveToDyingMessage();
             }
 
@@ -178,6 +179,7 @@ public class PlayerController : MonoBehaviour
                 int CurrentStage = SceneManager.GetActiveScene().buildIndex;
                 int NextStage = CurrentStage += 1;
                 SceneManager.LoadScene(NextStage);
+
             }
         }
 

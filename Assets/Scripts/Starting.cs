@@ -9,7 +9,7 @@ public class Starting : MonoBehaviour
 
     public void StartButton()
     {
-        SceneManager.LoadScene(gameStart);
+        GameDataManager.instance.GameStart();
     }
 
     public void ExitButton()

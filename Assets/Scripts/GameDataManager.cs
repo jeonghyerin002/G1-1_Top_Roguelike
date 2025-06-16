@@ -75,4 +75,21 @@ public class GameDataManager : MonoBehaviour
         }
         SceneManager.LoadScene("DyingMessage");
     }
+
+    // 개발 중 메인씬 테스트 씬 스킵을 위한 장치
+    public void DevGameStart()
+    {
+        playerData = LoadData();
+        if (playerData == null)
+        {
+            playerData = new PlayerData();
+        }
+    }
+
+    private void Update()
+    {
+        if ( Input.GetKey(KeyCode.F1) )
+            GameDataManager.instance.DevGameStart();
+    }
+
 }

@@ -428,6 +428,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4196821140769805550, guid: 94596060ba87e4f44a7f9a624545312a, type: 3}
+      propertyPath: m_Color.a
+      value: 0.007843138
+      objectReference: {fileID: 0}
     - target: {fileID: 8734147463665949517, guid: 94596060ba87e4f44a7f9a624545312a, type: 3}
       propertyPath: m_Name
       value: Door
@@ -863,23 +867,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.1447706
+      value: 1.0322709
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.1447706
+      value: 1.0322709
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 3.1447706
+      value: 1.0322709
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6
+      value: -2.44
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.613
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -912,6 +916,14 @@ PrefabInstance:
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169261214060596841, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 322c031c8568c3e4aafd1497453b8a2e, type: 3}
+    - target: {fileID: 7169261214060596841, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7588671580583683672, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: max.x

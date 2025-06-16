@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class BossController : MonoBehaviour
@@ -15,18 +16,33 @@ public class BossController : MonoBehaviour
 
     public Vector2 min;
     public Vector2 max;
-    
+
+    private bool stage3Mode = false;
+    private bool inSubwayStageMode = false;
+
     void Start()
     {
+
+
+        if (SceneManager.GetActiveScene().name == "stage_1" || SceneManager.GetActiveScene().name == "stage_2")
+        {
+            inSubwayStageMode = true;
+        }
+
+
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "stage_3")
+        {
+            stage3Mode = true;
+        }
+
         bossHP = bossHPMax;
 
         switch (bossData.bossType)
         {
             case BossType.Round1:
-
-                StartCoroutine(Round1BossAttackPattern());
                 Debug.Log("라운드 1");
-                    break;
+                StartCoroutine(Round1BossAttackPattern());
+                break;
 
             case BossType.Round2:
                 Debug.Log("라운드 2");
@@ -48,39 +64,47 @@ public class BossController : MonoBehaviour
 
     IEnumerator Round1BossAttackPattern()
     {
-        while (true)
+        if(inSubwayStageMode)
         {
+            while (true)
+            {
 
-            yield return StartCoroutine(RoundBoss());
-            yield return new WaitForSeconds(2f);
+                yield return StartCoroutine(RoundBoss());
+                yield return new WaitForSeconds(2f);
 
-            Debug.Log("반복 공격");
+                Debug.Log("반복 공격");
+            }
         }
     }
+        
     IEnumerator RoundBoss()
     {
+        if(inSubwayStageMode)
+        {
+            Vector2[] attackPos = new Vector2[bossAttackCount];
 
-        Vector2[] attackPos = new Vector2[bossAttackCount];
+            for (int i = 0; i < attackPos.Length; i++)
+            {
+                float x = Random.Range(min.x, max.x);
+                float y = Random.Range(min.y, max.y);
+
+                attackPos[i] = new Vector2(x, y);
+            }
+
+            foreach (var position in attackPos)
+            {
+                Instantiate(warningEffect, position, Quaternion.identity);
+            }
+
+            yield return new WaitForSeconds(2f);
+
+            foreach (var position in attackPos)
+            {
+                Instantiate(attackPrefabs, position, Quaternion.identity);
+            }
+
+        }
         
-        for(int i = 0; i < attackPos.Length; i++)
-        {
-            float x = Random.Range(min.x, max.x);
-            float y = Random.Range(min.y, max.y);
-
-            attackPos[i] = new Vector2(x, y);
-        }
-
-        foreach(var position  in attackPos)
-        {
-            Instantiate(warningEffect, position, Quaternion.identity);
-        }
-
-        yield return new WaitForSeconds(2f);
-
-        foreach (var position in attackPos)
-        {
-            Instantiate(attackPrefabs, position, Quaternion.identity);
-        }
         
     }
 
@@ -88,6 +112,10 @@ public class BossController : MonoBehaviour
     void Update()
     {
         
+        if (stage3Mode)
+        {
+            
+        }
     }
 
 

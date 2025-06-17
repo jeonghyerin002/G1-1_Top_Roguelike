@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class BossController : MonoBehaviour
 {
@@ -24,17 +21,6 @@ public class BossController : MonoBehaviour
     {
 
 
-        if (SceneManager.GetActiveScene().name == "stage_1" || SceneManager.GetActiveScene().name == "stage_2")
-        {
-            inSubwayStageMode = true;
-        }
-
-
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "stage_3")
-        {
-            stage3Mode = true;
-        }
-
         bossHP = bossHPMax;
 
         switch (bossData.bossType)
@@ -46,6 +32,7 @@ public class BossController : MonoBehaviour
 
             case BossType.Round2:
                 Debug.Log("라운드 2");
+                StartCoroutine(Round1BossAttackPattern());
                 break;
 
             case BossType.Round3:
@@ -64,57 +51,55 @@ public class BossController : MonoBehaviour
 
     IEnumerator Round1BossAttackPattern()
     {
-        if(inSubwayStageMode)
+
+        while (true)
         {
-            while (true)
-            {
 
-                yield return StartCoroutine(RoundBoss());
-                yield return new WaitForSeconds(2f);
-
-                Debug.Log("반복 공격");
-            }
-        }
-    }
-        
-    IEnumerator RoundBoss()
-    {
-        if(inSubwayStageMode)
-        {
-            Vector2[] attackPos = new Vector2[bossAttackCount];
-
-            for (int i = 0; i < attackPos.Length; i++)
-            {
-                float x = Random.Range(min.x, max.x);
-                float y = Random.Range(min.y, max.y);
-
-                attackPos[i] = new Vector2(x, y);
-            }
-
-            foreach (var position in attackPos)
-            {
-                Instantiate(warningEffect, position, Quaternion.identity);
-            }
-
+            yield return StartCoroutine(RoundBoss());
             yield return new WaitForSeconds(2f);
 
-            foreach (var position in attackPos)
-            {
-                Instantiate(attackPrefabs, position, Quaternion.identity);
-            }
-
+            Debug.Log("반복 공격");
         }
-        
-        
+
     }
 
-    
+    IEnumerator RoundBoss()
+    {
+
+        Vector2[] attackPos = new Vector2[bossAttackCount];
+
+        for (int i = 0; i < attackPos.Length; i++)
+        {
+            float x = Random.Range(min.x, max.x);
+            float y = Random.Range(min.y, max.y);
+
+            attackPos[i] = new Vector2(x, y);
+        }
+
+        foreach (var position in attackPos)
+        {
+            Instantiate(warningEffect, position, Quaternion.identity);
+        }
+
+        yield return new WaitForSeconds(2f);
+
+        foreach (var position in attackPos)
+        {
+            Instantiate(attackPrefabs, position, Quaternion.identity);
+        }
+
+
+
+
+    }
+
+
     void Update()
     {
-        
+
         if (stage3Mode)
         {
-            
+
         }
     }
 

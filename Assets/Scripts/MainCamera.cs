@@ -19,7 +19,7 @@ public class MainCamera : MonoBehaviour
 
     private void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "stage_3")
         {

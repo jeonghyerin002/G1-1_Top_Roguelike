@@ -20609,7 +20609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.45
+      value: -4.64
       objectReference: {fileID: 0}
     - target: {fileID: 4013750911380663131, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -31006,7 +31006,6 @@ GameObject:
   - component: {fileID: 1869155307106967934}
   - component: {fileID: 7789499455565037157}
   - component: {fileID: 5812764868153375238}
-  - component: {fileID: 7789499455565037158}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -31073,25 +31072,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &7789499455565037158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4892294768809297671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f68be2d4c77be446be14a45396fd311, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  followSpeed: 5
-  cameraOffset: -10
-  fixedZ: -10
-  minX: -2.47
-  maxX: 3.08
-  minY: 1.701
-  maxY: 1.701
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

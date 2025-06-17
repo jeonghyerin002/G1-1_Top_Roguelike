@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     private float coolTime;
     public float MaxcoolTime = 0.5f;
 
+    private float stage4PlayerBackSpeed = 0.5f;
+    private float stage4BackgoundSpeed = 0.5f;
+
     Animator animator;
     Vector2 input;
     Vector2 Velocity;

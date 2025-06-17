@@ -13,9 +13,14 @@ public class Hitbox : MonoBehaviour
         if(collision.CompareTag("Respawn"))
         {
             BossController boss = collision.GetComponent<BossController>();
-
+            Debug.Log(323);
             boss.bossHP -= damage;
         }
+    }
+
+    private void Start()
+    {
+        Destroy(gameObject, duration);
     }
 
 }

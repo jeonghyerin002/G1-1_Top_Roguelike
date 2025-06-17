@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    float moveSpeed = 2.0f;
+    float moveSpeed = 1.5f;
 
 
 
@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     public bool isHelpful;              //트리거 bool 확인
     public bool isNeverDie;
     public bool dyingMessage = false;
+    private bool is4RoundMode = false;
+    private bool round4BackSpeed = false;
 
     public GameObject closeHitbox;           //근접공격 히트박스
     public GameObject Boss;
@@ -34,12 +36,19 @@ public class PlayerController : MonoBehaviour
     private float coolTime;
     public float MaxcoolTime = 0.5f;
 
-    //private float stage4PlayerBackSpeed = 0.5f;
-
     Animator animator;
     Vector2 input;
     Vector2 Velocity;
 
+    private void Start()
+    {
+        if(SceneManager.GetActiveScene().name == "Stage_4")
+        {
+            is4RoundMode = true;
+            round4BackSpeed = true;
+        }
+
+    }
 
     private void Awake()
     {
@@ -56,11 +65,21 @@ public class PlayerController : MonoBehaviour
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
 
+        if (round4BackSpeed == true)
+        {
+            // 4라운드 자동 후진
+            Velocity = (input.normalized * moveSpeed) + new Vector2(-0.3f, 0f);
+        }
+        else
+        {
+            Velocity = input.normalized * moveSpeed;
+        }
+
         //방향에 따라 애니메이션 파라미터 연결
         //animator.SetInteger("MoveX", input.x);
         //animator.SetInteger("MoveY", input.y);
 
-        Velocity = input.normalized * moveSpeed;
+        
 
         if (input.sqrMagnitude > .01f)
         {
@@ -119,6 +138,7 @@ public class PlayerController : MonoBehaviour
         }
 
         
+        
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -141,6 +161,7 @@ public class PlayerController : MonoBehaviour
             helpMemo.SetActive(false);
         }
 
+        
 
     }
     
@@ -181,13 +202,13 @@ public class PlayerController : MonoBehaviour
             }
             
 
-            if (isOpenBox == true || BossController.Instance.isBossDie == true)
+            if (isOpenBox == true || BossController.Instance.isBossDie == true || is4RoundMode == true)
             {
                 int CurrentStage = SceneManager.GetActiveScene().buildIndex;
                 int NextStage = CurrentStage += 1;
                 SceneManager.LoadScene(NextStage);
-
             }
+
         }
 
         if (collision.CompareTag("NeverDie"))

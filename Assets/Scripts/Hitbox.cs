@@ -14,7 +14,11 @@ public class Hitbox : MonoBehaviour
         {
             BossController boss = collision.GetComponent<BossController>();
             Debug.Log(323);
-            boss.bossHP -= damage;
+            if(boss != null)
+            {
+                boss.bossHP -= damage;
+            }
+            
         }
     }
 

@@ -21,20 +21,20 @@ public class PlayerController : MonoBehaviour
     public bool isOpenBox;
     public GameObject helpMemo;      //패널
     public bool isOpenDoor = false;
-    public bool isBossDie = false;
+    //public bool isBossDie = false;
     public bool isHelpful;              //트리거 bool 확인
     public bool isNeverDie;
     public bool dyingMessage = false;
 
     public GameObject closeHitbox;           //근접공격 히트박스
+    public GameObject Boss;
     public Transform AttackPoint;
     public Transform[] AttackPos;
 
     private float coolTime;
     public float MaxcoolTime = 0.5f;
 
-    private float stage4PlayerBackSpeed = 0.5f;
-    private float stage4BackgoundSpeed = 0.5f;
+    //private float stage4PlayerBackSpeed = 0.5f;
 
     Animator animator;
     Vector2 input;
@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
             coolTime -= Time.deltaTime;
         }
 
+        
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -174,10 +175,13 @@ public class PlayerController : MonoBehaviour
 
         if (collision.CompareTag("Door"))
         {
-            isHelpful = false;
-            Debug.Log("열쇠가 필요합니다.");
+            if (isHelpful ==  false || BossController.Instance.isBossDie == false)
+            {
+                Debug.Log("문이 잠겨있다.");
+            }
+            
 
-            if (isOpenBox == true || isBossDie)
+            if (isOpenBox == true || BossController.Instance.isBossDie == true)
             {
                 int CurrentStage = SceneManager.GetActiveScene().buildIndex;
                 int NextStage = CurrentStage += 1;

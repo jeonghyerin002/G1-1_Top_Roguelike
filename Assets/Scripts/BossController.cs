@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BossController : MonoBehaviour
 {
@@ -13,16 +12,22 @@ public class BossController : MonoBehaviour
     public GameObject warningEffect;
     public GameObject attackPrefabs;
     public GameObject[] round3BossAttack;
+    public GameObject[] round3BossAttackReal;
     public Transform BossAttackPos;
-    
+    public GameObject Boss;
 
     public Vector2 min;
     public Vector2 max;
 
-    private bool stage3Mode = false;
-    private bool inSubwayStageMode = false;
+    //private bool inSubwayStageMode = false;
     public bool inElevatorStageMode = false;
+    public bool isBossDie = false;
 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
 
@@ -66,7 +71,13 @@ public class BossController : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
             Debug.Log("반복 공격");
+            if (isBossDie == true)
+            {
+                break;
+            }
+
         }
+
 
     }
 
@@ -99,34 +110,40 @@ public class BossController : MonoBehaviour
 
     IEnumerator Round3BossAttackPattern()     // 3라운드 보스 공격 패턴
     {
-        
+
         while (true)
         {
             yield return StartCoroutine(RoundElevatorBoss());
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(4.0f);
+
 
             Debug.Log(" 쿵 ");
         }
 
-    
+
     }
 
     IEnumerator RoundElevatorBoss()         //3라운드 보스 공격 소환
     {
         if (inElevatorStageMode)
-           yield return new WaitForSeconds(0f);
+            yield return new WaitForSeconds(0f);
 
-            inElevatorStageMode = true;
+        inElevatorStageMode = true;
         int randomIndex = Random.Range(0, round3BossAttack.Length);
         yield return new WaitForSeconds(0f);
 
-        Instantiate(round3BossAttack[randomIndex],BossAttackPos.position, Quaternion.identity);
+        Instantiate(round3BossAttack[randomIndex], BossAttackPos.position, Quaternion.identity);
     }
+
 
 
     void Update()
     {
-
+        if (bossHP <= 0)
+        {
+            isBossDie = true;
+            Destroy(Boss);
+        }
     }
 
 

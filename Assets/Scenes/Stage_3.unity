@@ -194,7 +194,7 @@ Transform:
   m_GameObject: {fileID: 134895058}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.906494, y: 4.490809, z: -3.5558937}
+  m_LocalPosition: {x: -2.42, y: 2.1, z: -3.5558937}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -928,7 +928,7 @@ PrefabInstance:
     - target: {fileID: 7588671580583683672, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: attackPrefabs
       value: 
-      objectReference: {fileID: 8940768176863376691, guid: 7ebedc137904a0449996ac8bf31b6e39, type: 3}
+      objectReference: {fileID: 872528723}
     - target: {fileID: 7588671580583683672, guid: 3402a592293741f45847df50cfa8b1e5, type: 3}
       propertyPath: warningEffect
       value: 

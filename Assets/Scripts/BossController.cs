@@ -133,6 +133,10 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(0f);
 
         Instantiate(round3BossAttack[randomIndex], BossAttackPos.position, Quaternion.identity);
+
+        yield return new WaitForSeconds(2f);
+
+        Instantiate(round3BossAttackReal[randomIndex], BossAttackPos.position, Quaternion.identity);
     }
 
 

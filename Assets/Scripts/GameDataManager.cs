@@ -28,6 +28,22 @@ public class GameDataManager : MonoBehaviour
         {
             Destroy(gameObject); //중복 방지
         }
+
+        //string filePath = Application.persistentDataPath + "/player_data.json";
+        //if (System.IO.File.Exists(filePath))
+        //{
+            //System.IO.File.Delete(filePath);
+           //Debug.Log("기존 데이터 초기화");
+        //}
+        //if (instance == null)
+        //{
+            //instance= this;
+            //DontDestroyOnLoad(gameObject);
+        //}
+        //else
+        //{
+            //Destroy(gameObject); //중복방지
+        //}
     }
     public void SaveData (PlayerData playerData)
     {

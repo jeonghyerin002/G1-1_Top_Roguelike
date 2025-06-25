@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum BossType
 {
-    Round1, Round2, Round3, Round4, Round5
+     TestScene, Round1, Round2, Round3, Round4, Round5
 }
 [CreateAssetMenu]
 public class BossSO : ScriptableObject

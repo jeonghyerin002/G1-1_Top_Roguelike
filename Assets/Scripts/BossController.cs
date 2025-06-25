@@ -1,13 +1,15 @@
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossController : MonoBehaviour
 {
     public static BossController Instance;
     [SerializeField] private BossSO bossData;
 
-    public int bossHP = 0;
-    public int bossHPMax;
+    public float bossHP = 0;
+    public float bossHPMax;
     public int bossAttackCount;
     public GameObject warningEffect;
     public GameObject attackPrefabs;
@@ -23,10 +25,19 @@ public class BossController : MonoBehaviour
     public bool inElevatorStageMode = false;
     public bool isBossDie = false;
 
-
+    //5라운드 보스 HP 회복용
+    private float lastDemageTime;       //마지막 데미지 타임
+    public float noDemageTime = 13f;   //데미지가 없을 시 회복 대기 시간
+    public float returnBossHP = 5;    //회복량
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void TakeDemage (int demage)
+    {
+        bossHP -= demage;
+        lastDemageTime = Time.time;
     }
     void Start()
     {
@@ -36,6 +47,11 @@ public class BossController : MonoBehaviour
 
         switch (bossData.bossType)
         {
+            //case BossType.TestScene:
+                //isBossDie = true;
+               // break;
+
+
             case BossType.Round1:
                 Debug.Log("라운드 1");
                 StartCoroutine(Round1BossAttackPattern());
@@ -57,8 +73,12 @@ public class BossController : MonoBehaviour
 
             case BossType.Round5:
                 Debug.Log("라운드 ");
+                StartCoroutine(Round3BossAttackPattern());
+                StartCoroutine(Round5BossHealthPattern());
                 break;
         }
+
+        
     }
 
     IEnumerator Round1BossAttackPattern() //1, 2라운드 보스 공격 패턴
@@ -137,7 +157,27 @@ public class BossController : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         Instantiate(round3BossAttackReal[randomIndex], BossAttackPos.position, Quaternion.identity);
+
     }
+
+    IEnumerator Round5BossHealthPattern()     // 5라운드 보스 HP회복
+    {
+
+        while (!isBossDie)
+        {
+            if (Time.time - lastDemageTime > noDemageTime && bossHP < bossHPMax)
+            {
+                bossHP += returnBossHP;
+                bossHP = Mathf.Min(bossHP, bossHPMax);
+                Debug.Log($"보스가 체력을 회복했습니다. 현재 체력 : {bossHP}");
+            }
+
+            yield return new WaitForSeconds(1f);
+        }
+
+
+    }
+
 
 
 

@@ -24,8 +24,10 @@ public class PlayerController : MonoBehaviour
     //public bool isBossDie = false;
     public bool isHelpful;              //트리거 bool 확인
     public bool isNeverDie;
+    public bool key;
+    public bool veryNiceKey;
     public bool dyingMessage = false;
-    private bool is4RoundMode = false;
+    //private bool is4RoundMode = false;
     private bool round4BackSpeed = false;
 
     public GameObject closeHitbox;           //근접공격 히트박스
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name == "Stage_4")
         {
-            is4RoundMode = true;
+            //is4RoundMode = true;
             round4BackSpeed = true;
         }
 
@@ -190,25 +192,8 @@ public class PlayerController : MonoBehaviour
         if (collision.CompareTag("Box"))
         {
             isHelpful = true;
-            Debug.Log("상자 발견" + " 열쇠 획득");
+            Debug.Log("상자 발견");
             isOpenBox = true;
-        }
-
-        if (collision.CompareTag("Door"))
-        {
-            if (isHelpful ==  false || BossController.Instance.isBossDie == false)
-            {
-                Debug.Log("문이 잠겨있다.");
-            }
-            
-
-            if (isOpenBox == true || BossController.Instance.isBossDie == true || is4RoundMode == true)
-            {
-                int CurrentStage = SceneManager.GetActiveScene().buildIndex;
-                int NextStage = CurrentStage += 1;
-                SceneManager.LoadScene(NextStage);
-            }
-
         }
 
         if (collision.CompareTag("NeverDie"))
@@ -222,6 +207,45 @@ public class PlayerController : MonoBehaviour
             //isNeverDie = false;
             //}
         }
+
+        if (collision.CompareTag("Key"))
+        {
+            key = true;
+            Debug.Log("열쇠 획득");
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("VeryNiceKey"))
+        {
+            veryNiceKey = true;
+            Debug.Log("베리나이스열쇠 획득");
+            Destroy(collision.gameObject);
+        }
+
+
+        if (collision.CompareTag("Door"))
+        {
+
+            bool isBossDead = BossController.Instance != null && BossController.Instance.isBossDie;
+
+            if (!isHelpful || BossController.Instance.isBossDie == false || key == false )
+            {
+                Debug.Log("문이 잠겨있다.");
+            }
+            
+
+            if ((BossController.Instance.isBossDie == true && key == true) || veryNiceKey == true)
+            {
+                int CurrentStage = SceneManager.GetActiveScene().buildIndex;
+                int NextStage = CurrentStage += 1;
+                SceneManager.LoadScene(NextStage);
+            }
+            
+            
+
+        }
+
+        
     }
 
     public void OnTriggerExit2D(Collider2D collision)

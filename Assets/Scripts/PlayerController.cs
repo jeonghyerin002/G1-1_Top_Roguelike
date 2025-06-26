@@ -42,6 +42,23 @@ public class PlayerController : MonoBehaviour
     Vector2 input;
     Vector2 Velocity;
 
+    private bool isDead = false;
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 시 이벤트 등록
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // 메모리 누수 방지
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        isDead = false; // 씬이 바뀌면 자동으로 false로 초기화
+    }
+
     private void Start()
     {
         if(SceneManager.GetActiveScene().name == "Stage_4")
@@ -174,6 +191,9 @@ public class PlayerController : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (isDead) return;
+
         if (collision.CompareTag("Respawn"))
         {
             if (isNeverDie)
@@ -184,8 +204,18 @@ public class PlayerController : MonoBehaviour
             if(!isNeverDie)
             {
                 Debug.Log("죽음");
-                GameDataManager.instance.PlayerDead(SceneManager.GetActiveScene().buildIndex);
-                collision.GetComponent<LevelObject>().MoveToDyingMessage();
+                isDead = true;
+                string sceneName = SceneManager.GetActiveScene().name;
+
+                // "Stage_1" → 숫자 '1'만 추출
+                int stageNumber = 0;
+                if (sceneName.StartsWith("Stage_"))
+                {
+                    string numberPart = sceneName.Replace("Stage_", "");
+                    int.TryParse(numberPart, out stageNumber);
+                }
+
+                GameDataManager.instance.PlayerDead(stageNumber);
             }
 
         }
@@ -221,7 +251,7 @@ public class PlayerController : MonoBehaviour
             //veryNiceKey = true;
             //Debug.Log("베리나이스열쇠 획득");
            // Destroy(collision.gameObject);
-        //}
+         //}
 
 
         if (collision.CompareTag("Door"))
@@ -229,17 +259,83 @@ public class PlayerController : MonoBehaviour
 
             //bool isBossDead = BossController.Instance != null && BossController.Instance.isBossDie ==false;
 
-            if ( BossController.Instance.isBossDie == false || key == false )
+            if (BossController.Instance != null)
             {
-                Debug.Log("문이 잠겨있다.");
-            }
-            
+                if (BossController.Instance.isBossDie == false || key == false)
+                {
+                    Debug.Log("문이 잠겨있다.");
+                }
 
-            if ((BossController.Instance.isBossDie == true && key == true) || is4RoundMode )
+
+                if ((BossController.Instance.isBossDie == true && key == true) || is4RoundMode)
+                {
+                    string currentSceneName = SceneManager.GetActiveScene().name;
+                    string nextSceneName = "";
+
+                    if (currentSceneName == "TestScene")
+                    {
+                        nextSceneName = "Stage_1";
+                    }
+                    else if (currentSceneName.StartsWith("Stage_"))
+                    {
+                        string numberPart = currentSceneName.Replace("Stage_", "");
+                        int stageNumber;
+
+                        if (int.TryParse(numberPart, out stageNumber))
+                        {
+                            int nextStage = stageNumber + 1;
+                            nextSceneName = $"Stage_{nextStage}";
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(nextSceneName))
+                    {
+                        SceneManager.LoadScene(nextSceneName);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("다음 씬 이름이 잘못되었습니다.");
+                    }
+                }
+            }
+            else
             {
-                int CurrentStage = SceneManager.GetActiveScene().buildIndex;
-                int NextStage = CurrentStage += 1;
-                SceneManager.LoadScene(NextStage);
+                if (key == false)
+                {
+                    Debug.Log("문이 잠겨있다.");
+                }
+
+
+                if (key == true)
+                {
+                    string currentSceneName = SceneManager.GetActiveScene().name;
+                    string nextSceneName = "";
+
+                    if (currentSceneName == "TestScene")
+                    {
+                        nextSceneName = "Stage_1";
+                    }
+                    else if (currentSceneName.StartsWith("Stage_"))
+                    {
+                        string numberPart = currentSceneName.Replace("Stage_", "");
+                        int stageNumber;
+
+                        if (int.TryParse(numberPart, out stageNumber))
+                        {
+                            int nextStage = stageNumber + 1;
+                            nextSceneName = $"Stage_{nextStage}";
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(nextSceneName))
+                    {
+                        SceneManager.LoadScene(nextSceneName);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("다음 씬 이름이 잘못되었습니다.");
+                    }
+                }
             }
             
             

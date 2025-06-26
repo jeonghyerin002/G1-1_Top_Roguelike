@@ -70,9 +70,27 @@ public class GameDataManager : MonoBehaviour
         }
     }
 
+    public void ResetPlayerData()
+    {
+        string filePath = Application.persistentDataPath + "/player_data.json";
+
+        if (System.IO.File.Exists(filePath))
+        {
+            System.IO.File.Delete(filePath);
+            Debug.Log("플레이어 데이터가 초기화되었습니다.");
+        }
+        else
+        {
+            Debug.Log("삭제할 플레이어 데이터가 없습니다.");
+        }
+
+        playerData = new PlayerData(); // 메모리 상의 데이터도 초기화
+    }
+
     public void GameStart()
     {
-        playerData = LoadData();
+        ResetPlayerData();
+
         if (playerData == null)
         {
             playerData = new PlayerData();

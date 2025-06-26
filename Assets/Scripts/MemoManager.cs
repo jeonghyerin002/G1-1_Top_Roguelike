@@ -8,6 +8,8 @@ public class MemoManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameDataManager.instance.playerData = GameDataManager.instance.LoadData();
+
         for (int i = 0; i < GameDataManager.instance.playerData.OpenedMemo; i++)
         {
             MemoList[i].gameObject.SetActive(true);
